@@ -21,10 +21,11 @@ void print_arr(double *p, const int &ncoords){
         cout<<*p<<"\t"<<*(p+1)<<"\t"<<*(p+2)<<endl;
 }
 
-MatrixXd geometry_approximate(MatrixXd &coords, const int &ncoords){
+MatrixXd geometry_approximate(const MatrixXd &coords){
 
     // Center of hypotenuse:
     // Apexes for nex triangle search.
+    const int ncoords = coords.rows();
     MatrixXd Apex(ncoords,3);
     double *apex=Apex.data();
     // double Apex[ncoords][3]={0};
@@ -53,7 +54,7 @@ MatrixXd geometry_approximate(MatrixXd &coords, const int &ncoords){
     int ntags = ncoords/2 + (ncoords%2); // Number of triangles current points have.
     // Number of atoms before each search.
     int _nps = ncoords;
-    double *coord=coords.data();
+    const double *coord=coords.data();
     
     int total_tags = 0;
 

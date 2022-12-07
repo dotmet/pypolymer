@@ -16,12 +16,13 @@ float add(float a, float b){
     return a+b;
 }
 
-Array3f compute_rcm(const MatrixXd &coords, const int ncoords){
+Array3f compute_rcm(const MatrixXd &coords){
     Array3f Rcm;
     Rcm << 0, 0, 0;
     
     float *rcm = Rcm.data();
     const double *crd = coords.data();
+    const int ncoords = coords.rows();
     const int *ncd = &ncoords;
     
     for(int i=0; i<ncoords; i++){
@@ -37,7 +38,7 @@ Array3f compute_rcm(const MatrixXd &coords, const int ncoords){
     return Rcm;
 }
 
-Matrix3d compute_gyration(const MatrixXd &coords_to_rcm, const int ncoords){
+Matrix3d compute_gyration(const MatrixXd &coords_to_rcm){
     
     Matrix3d gyration;
     gyration << 0, 0, 0, 
@@ -50,6 +51,8 @@ Matrix3d compute_gyration(const MatrixXd &coords_to_rcm, const int ncoords){
     
     double a=0, b=0, c=0;
     double *x=&a, *y=&b, *z=&c;
+    
+    const int ncoords = coords_to_rcm.rows();
 
     for(int i=0; i<ncoords; i++){
         
@@ -67,21 +70,25 @@ Matrix3d compute_gyration(const MatrixXd &coords_to_rcm, const int ncoords){
     return gyration;
 }
 
-MatrixXd parse_boundary(MatrixXd &coords, const MatrixXd &bonds, const MatrixXd &box, const int ncoords, const int nbonds){
+MatrixXd parse_boundary(const MatrixXd &coords, const MatrixXd &bonds, const MatrixXd &box){
     
-    float p0_[3]={0.0}, p1_[3]={0.0};
+    const int ncoords = coords.rows();
+    const int nbonds = bonds.rows();
+    
+    MatrixXd new_coords(ncoords,3);
+    double *n_cd = new_coords.data();
+    
+    double p0_[3]={0.0}, p1_[3]={0.0};
     int bond_[2] = {0};
     int pid_[ncoords] = {0};
-    
-    float *p0=p0_, *p1=p1_;
+    double *p0=p0_, *p1=p1_;
     int *bond=bond_, *pid=pid_;
     
-    double *cd=coords.data();
+    const double *cd=coords.data();
     const double *bd=bonds.data();
     
-    float vec_[3] = {0, 0, 0};
-    
-    float *vec = vec_;
+    double vec_[3] = {0, 0, 0};
+    double *vec = vec_;
     
     for(int i=0; i<nbonds; i++){
         
@@ -121,13 +128,14 @@ MatrixXd parse_boundary(MatrixXd &coords, const MatrixXd &bonds, const MatrixXd 
             }
         }
         
-        *(cd+aid2) = *p1;
-        *(cd+aid2+ncoords) = *(p1+1);
-        *(cd+aid2+2*ncoords) = *(p1+2); 
+        *(n_cd+aid2) = *p1;
+        *(n_cd+aid2+ncoords) = *(p1+1);
+        *(n_cd+aid2+2*ncoords) = *(p1+2); 
     }
     
-    return coords;
+    return new_coords;
 }
+
 
 PYBIND11_MODULE(topo_tools_cpp, m){
     m.doc() = "pybind11 example plugin";

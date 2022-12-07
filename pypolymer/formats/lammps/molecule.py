@@ -1,5 +1,5 @@
 import numpy as np
-from pylmp.File.datafile.utilTools import *
+from .utilTools import *
 
 class Molecule(object):
     

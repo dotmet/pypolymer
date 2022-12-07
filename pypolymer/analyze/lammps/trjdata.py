@@ -2,8 +2,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from pylmp.Data.rawdata import RawData
-from pylmp.Data.LmpTrj.util import *
+from .rawdata import RawData
+from .util import *
 
 class TrjHeader(object):
     

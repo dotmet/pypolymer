@@ -2,7 +2,8 @@ import numpy as np
 import time
 import copy
 
-from topo_tools_cpp import parse_boundary, compute_gyration, compute_rcm
+from pypolymer.util import compute_gyration
+from pypolymer.util import compute_rcm as _compute_rcm
 
 
 class TrjAnalysis(object):
@@ -106,10 +107,6 @@ class TrjAnalysis(object):
         Span = []
         for topo in self.topos:
             gyras.append(topo.gyration.flatten())
-            # _coords = topo.coords
-            # _rcm = np.mean(_coords, axis=0)
-            # c2rcm = _coords-_rcm
-            # gyration = compute_gyration(c2rcm, c2rcm.shape[0])
             R_gyra.append(topo.Rg)
             tan2XG.append(topo.tan2XG)
             XG.append(topo.XG)
@@ -291,7 +288,7 @@ class TrjAnalysis(object):
         
         # compute gyration
         r2cm = coords-rcm
-        gyra = compute_gyration(r2cm, r2cm.shape[0])
+        gyra = compute_gyration(r2cm)
         topo.gyration = gyra
         topo.Rg = np.sum([gyra[0,0], gyra[1,1], gyra[2,2]])
         topo.tan2XG = 2*gyra[0,2]/(gyra[0,0]-gyra[2,2])
@@ -394,7 +391,7 @@ class TrjAnalysis(object):
             mass = mass + [1.0]*(coords.shape[0]-len(mass))
         
         mcoords = coords*np.array([mass]).T
-        rcm = (1/np.sum(mass))*compute_rcm(mcoords, mcoords.shape[0])
+        rcm = (1/np.sum(mass))*_compute_rcm(mcoords)
         
         return rcm
         

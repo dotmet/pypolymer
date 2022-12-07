@@ -1,6 +1,6 @@
 import numpy as np
-from pylmp.File.datafile.utilTools import *
-from pylmp.File.datafile.molecule import Molecule
+from .utilTools import *
+from .molecule import Molecule
 
 def cutMolecule_1(Mol, nsubMol):
     

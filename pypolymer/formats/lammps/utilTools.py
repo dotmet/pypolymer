@@ -1,6 +1,6 @@
 import numpy as np
-from pylmp.File.datafile.parsePosition import *
-# from lammps.ParseModule.molecule import *
+from .parsePosition import *
+
 import os
 
 ### Read data from files####################

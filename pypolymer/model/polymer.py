@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from pylmp.Model.polymerTopo import PolymerTopoParser
+from .polymerTopo import PolymerTopoParser
 
 class Polymer(object):
 

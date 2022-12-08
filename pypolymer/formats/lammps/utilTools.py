@@ -59,6 +59,7 @@ def genAngles(atoms=100, isClosed=True):
         angle.append(l)
     if isClosed:
         angle.append([atoms-1,atoms-1,atoms,1])
+        angle.append([atoms, atoms, 1, 2])
     return np.array(angle)
 
 def genBonds(atoms=100, isClosed=True):

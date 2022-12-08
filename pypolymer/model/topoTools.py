@@ -29,3 +29,45 @@ def mol_cross_boundary(mol, bonds, box, bound_info=['p','p','p']):
         mol[bond[1]] = _p1
 
     return mol
+    
+def gen_angles(sid=0, atoms=0, isClosed=False):
+    angle = []
+    for i in range(atoms-2):
+        l = [i, i+1, i+2]
+        angle.append(l)
+    if isClosed:
+        angle.append([atoms-2, atoms-1,0])
+        angle.append([atoms-1, 0, 1])
+    return np.array(angle, dtype=int)+sid
+
+def gen_bonds(sid=0, atoms=100, isClosed=False):
+    bond = []
+    for i in range(atoms-1):
+        l = [i, i+1]
+        bond.append(l)
+    if isClosed:
+        bond.append([atoms-1, 0])
+    return np.array(bond, dtype=int)+sid
+    
+def cut_polymer(topo, length=1, num=0):
+    
+    if length==1:
+        topo.bonds= []
+        topo.angles = []
+    else:
+        bonds = gen_bonds(sid=0, atoms=length)
+        angles = gen_angles(sid=0, atoms=length)
+        nmol = int(topo.coords.shape[0]/length)
+        if num>0 and num<=nmol:
+            nmol = num
+
+        for i in range(1, nmol):
+            bonds = np.vstack([bonds, gen_bonds(sid=i*length, atoms=length)])
+            angles = np.vstack([angles, gen_angles(sid=i*length, atoms=length)])
+        topo.coords = topo.coords[:nmol*length]
+        topo.bonds = bonds
+        topo.angles = angles
+        
+        print(f'{nmol} molecules generated!')
+        
+    return topo

@@ -1,13 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from .polymerTopo import PolymerTopoParser
+from .polymerTopo import PolymerTopoParser, PolymerTopoInfo
 
 class Polymer(object):
 
     def __init__(self, topoInfo=None):
         
         self.name = 'Polymer'
+        self.idx = 0
         self.type = 'Linear'
         self.atom_sid = 0
 
@@ -17,8 +18,14 @@ class Polymer(object):
         '''
         return f(*args)
 
-    def createPolymer(self):
-        return PolymerTopoParser().init_TopoInfo()
+    def create_topo(self):
+        return self.new_topo()
+    
+    def new_topo(self):
+        topo = PolymerTopoInfo()
+        topo.name = self.name
+        topo.idx = self.idx
+        return topo
 
     def printInfo(self):
         print('-------'+ self.name +' Info------')

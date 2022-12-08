@@ -70,6 +70,11 @@ class PolymerTopoInfo(object):
         self.torsional_angle_submol = {}
         
         self.ete_vec = []
+    
+    def image(self):
+        plt.subplot(projection='3d')
+        plt.plot(self.coords[:,0], self.coords[:,1], self.coords[:,2], marker='o')
+        plt.show()
 
 
 class PolymerTopoParser(object):

@@ -164,20 +164,3 @@ class Rectangle(Polymer):
         self.topoInfo.angles = self.createAngles(sid=0, eid=_atoms, closed=self.closed)
 
         return self.topoInfo
-
-
-if __name__ == '__main__':
-    p = Point()
-    ptopo = p.createPoint(1,2,3)
-     
-    R = Ring()
-    rtopo = R.createRing(10, 1, 31)
-
-    ptopo.coords 
-    ptopo.angles
-    ptopo.bonds
-
-    rtopo.bonds
-    rtopo.angles
-    rtopo.coords
-    

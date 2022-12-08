@@ -39,6 +39,18 @@ class LmpDataFile(object):
                 
             for i,key in enumerate(self.boxRange.keys()):
                 self.boxRange[key] = box[i]
+        self.box = box
+    
+    def adjust_box(self, dist_to_side):
+        
+        coords = self.get_posi()
+        _box = np.zeros(6)
+        for i in range(3):
+            _box[2*i] = np.min(coords[:,i]) - dist_to_side
+            _box[2*i+1] = np.max(coords[:,i]) + dist_to_side
+        self.box = _box
+        self._parse_box()
+        
     
     # A function used to construct system
     def Merge(self, mlist):

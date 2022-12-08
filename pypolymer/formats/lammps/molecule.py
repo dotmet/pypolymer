@@ -45,11 +45,29 @@ class Molecule(object):
         self.exist_attribute = exist_attribute
         self.prevM = 0
         self.CHANGE_SERIAL = True
-        self.HAVE_INDEX = True
         
     # Special initialize function
     def read_data(self, Prev_M=None, Masses=[], Coords=[], Bonds=[], Angles=[], Dihedrals=[], atyp=1, btyp=1, agtyp=1, dtyp=1):
         
+        # pre parse
+        from numpy import array as _arr
+        Coords = _arr(Coords, dtype=float)
+        Bonds = _arr(Bonds, dtype=int)
+        Angles = _arr(Angles, dtype=int)
+        Dihedrals = _arr(Dihedrals, dtype=int)
+        
+        if len(Coords)>0:
+            Coords = Coords[:, Coords.shape[1]-3:]
+        if len(Bonds)>0:
+            Bonds = Bonds[:, Bonds.shape[1]-2:]
+            Bonds = Bonds+1-np.min(Bonds) if np.min(Bonds)<=0 else Bonds
+        if len(Angles)>0:
+            Angles = Angles[:, Angles.shape[1]-3:]
+            Angles = Angles+1-np.min(Angles) if np.min(Angles)<=0 else Angles
+        if len(Dihedrals)>0:
+            Dihedrals = Dihedrals[:, Dihedrals.shape[1]-4:]
+            Dihedrals = Dihedrals+1-np.min(Dihedrals) if np.min(Dihedrals)<=0 else Dihedrals
+       
         dic = self.dataPart
         ############## Set Params ###############
         self.prevM = Prev_M
@@ -192,7 +210,6 @@ class Molecule(object):
             return ''
         typ_ = self._toArray([typ]*(num))
         index = self._gen1DArray(start_id, num)
-        data = data[:,1:] if self.HAVE_INDEX else data
         b_array = np.concatenate([index, typ_, data], axis=1)
         return self._arraytoStr(b_array.tolist())
 

@@ -72,7 +72,7 @@ Matrix3d compute_gyration(const MatrixXd &coords_to_rcm){
 
 MatrixXd parse_boundary(const MatrixXd &coords, const MatrixXd &bonds, const MatrixXd &box){
     
-    const int ncoords = coords.rows();
+    int ncoords = coords.rows();
     const int nbonds = bonds.rows();
     
     MatrixXd new_coords(ncoords,3);
@@ -98,13 +98,13 @@ MatrixXd parse_boundary(const MatrixXd &coords, const MatrixXd &bonds, const Mat
         
         int aid1=*bond, aid2=*(bond+1);
         
-        *p0 = *(cd+aid1+0);
-        *(p0+1) = *(cd+aid1+ncoords);
-        *(p0+2) = *(cd+aid1+2*ncoords);
+        *p0 = *(n_cd+aid1+0);
+        *(p0+1) = *(n_cd+aid1+ncoords);
+        *(p0+2) = *(n_cd+aid1+2*ncoords);
 
         *p1 = *(cd+aid2);
-        *(p1+1) = *(cd+aid2+ncoords);
-        *(p1+2) = *(cd+aid2+2*ncoords);
+        *(p1+1) = *(n_cd+aid2+ncoords);
+        *(p1+2) = *(n_cd+aid2+2*ncoords);
         
         *(pid+i+1) = *(bond+1);
 

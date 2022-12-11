@@ -76,6 +76,7 @@ MatrixXd parse_boundary(const MatrixXd &coords, const MatrixXd &bonds, const Mat
     const int nbonds = bonds.rows();
     
     MatrixXd new_coords(ncoords,3);
+    new_coords << coords;
     double *n_cd = new_coords.data();
     
     double p0_[3]={0.0}, p1_[3]={0.0};
@@ -118,7 +119,7 @@ MatrixXd parse_boundary(const MatrixXd &coords, const MatrixXd &bonds, const Mat
                 break;
             }
         }
-        
+                 
         if(State){
             for(int j=0; j<3; j++){
                 float span = abs(*(vec+j))-box(j)/2;
@@ -127,7 +128,7 @@ MatrixXd parse_boundary(const MatrixXd &coords, const MatrixXd &bonds, const Mat
                 }
             }
         }
-        
+         
         *(n_cd+aid2) = *p1;
         *(n_cd+aid2+ncoords) = *(p1+1);
         *(n_cd+aid2+2*ncoords) = *(p1+2); 

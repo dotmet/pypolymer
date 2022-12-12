@@ -226,7 +226,7 @@ MatrixXd geometry_approximate(const MatrixXd &coords){
 }
 
 PYBIND11_MODULE(geometry_approximation_cpp, m){
-    m.doc() = "pylmp geometry approximation plugin";
+    m.doc() = "pypolymer geometry approximation plugin";
     m.def("geometry_approximate", &geometry_approximate, "Compute the Area of geometry shape for many points.");
 #ifdef VERSION_INFO
     m.attr("__version__") = MACRO_STRINGIFY(VERSION_INFO);

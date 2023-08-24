@@ -10,10 +10,17 @@ root_dir = os.getcwd()
 include_dirs = [root_dir+'/pypolymer/include'] 
 
 ext_modules = [
-    Pybind11Extension("pypolymer.util",
-        ["pypolymer/util/topoTools.cpp", 'pypolymer/util/geometry_approximate.cpp'],
+    
+    Pybind11Extension("pypolymer.util.topo_tools_cpp",
+        ["pypolymer/util/topoTools.cpp"],
         define_macros = [('VERSION_INFO', __version__)], 
-        include_dirs = include_dirs), ]
+        include_dirs = include_dirs),   
+     
+    Pybind11Extension("pypolymer.util.geometry_approximation_cpp",
+        ["pypolymer/util/geometry_approximate.cpp"],
+        define_macros = [('VERSION_INFO', __version__)],
+        include_dirs = include_dirs),
+]
 
 setup(
     name="PyPolymer",

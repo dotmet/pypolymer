@@ -19,7 +19,3 @@ or
 ```
  $ pip install "pybind11[global]"
 ```
- - Eigen
-```
- $ sudo apt install libeigen3-dev
-```

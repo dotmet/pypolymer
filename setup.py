@@ -1,13 +1,13 @@
 import sys
 import os
 
-from extern.pybind11.pybind11.setup_helpers import Pybind11Extension, build_ext
+from pybind11.setup_helpers import Pybind11Extension, build_ext
 from setuptools import setup, find_packages, Extension
 
 __version__ = "0.0.1"
 
 root_dir = os.getcwd()
-include_dirs = [root_dir+'/pypolymer/include', root_dir+'/extern/pybind11/include'] 
+include_dirs = [root_dir+'/pypolymer/extern', root_dir+'pypolymer/extern/pybind11/include'] 
 
 ext_modules = [
     

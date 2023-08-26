@@ -2,3 +2,7 @@
 	path = extern/pybind11
 	url = ../../pybind/pybind11
 	branch = stable
+[submodule "pypolymer/extern/pybind11"]
+	path = pypolymer/extern/pybind11
+	url = ../../pybind/pybind11
+	branch = stable

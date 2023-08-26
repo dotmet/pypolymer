@@ -1,0 +1,14 @@
+name: pypolymer
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python==3.9
+  - pip
+  - numpy
+  - scipy
+  - gsd
+  - seaborn
+  - fresnel
+  - pillow
+  - tqdm

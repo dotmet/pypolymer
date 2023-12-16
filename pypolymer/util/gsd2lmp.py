@@ -7,11 +7,11 @@ from tqdm import tqdm
 
 class trjconvert:
     
-    def __init__(self, infile, outfile, stride=None, parse_boundary=False):
+    def __init__(self, infile, outfile, stride=None, parse_bound=False):
         self.infile = infile
         self.outfile = outfile
         self.stride = stride
-        self.parse_boundary = parse_boundary
+        self.parse_boundary = parse_bound
         
         self.inext = self.infile.split(".")[-1]
         self.outext = self.outfile.split(".")[-1]
